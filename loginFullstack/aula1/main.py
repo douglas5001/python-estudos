@@ -1,5 +1,5 @@
 from flask import Flask, render_template, redirect,flash, request
-
+import json
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'IGORKEYEVEN'
@@ -16,21 +16,25 @@ def login():
     nome = request.form.get('nome')
     senha = request.form.get('senha')
     
-    if nome == 'igor' and senha == '123':
+    with open('usuarios.json') as usuariosTemp:
+        usuarios = json.load(usuariosTemp)
+        cont = 0
+        for usuario in usuarios:
+            cont += 1 # recebe ele mesmo +1
+            if usuario['nome'] == nome and usuario['senha'] == senha:
+                return render_template("usuarios.html")
+           
+            if cont >= len(usuarios):
+                flash("USUÀRIO INVALIDO")
+                return redirect("/")
+
+    ###Teste de tela de login
+    #if nome == 'igor' and senha == '123':
  
-        return render_template('usuarios.html')
-    else:
-     flash('USUÀRIO INVALIDO')
-     return redirect('/')
-
-
-
-
-
-
-
-
-
+        #return render_template('usuarios.html')
+    #else:
+     #flash('USUÀRIO INVALIDO')
+     #return redirect('/')
 
 
 if __name__ in "__main__":
