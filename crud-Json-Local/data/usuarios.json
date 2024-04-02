@@ -1,0 +1,14 @@
+[
+    {
+        "id": 1,
+        "nome": "Maria Silva",
+        "cpf": "123.456.789-10",
+        "data_nascimento": "1989-05-15"
+    },
+    {
+        "id": 2,
+        "nome": "Douglas",
+        "cpf": 13213,
+        "data_nascimento": "2002-01-06"
+    }
+]
