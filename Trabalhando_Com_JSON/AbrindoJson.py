@@ -1,6 +1,9 @@
 from classPessoa import Pessoa
 import json
 
+with open('pessoas.json') as pessoas: #pessoas é a variavel que escolho para usar a função
+    data = json.load(pessoas)
+
 sair = False
 
 while sair == False:
@@ -8,28 +11,28 @@ while sair == False:
     if operacao == 1:
         print('      === CONSULTA === \n')
         #Consulta de um arquivo JSON local (No mesmo diretorio)
-        with open('pessoas.json') as pessoas: #pessoas é a variavel que escolho para usar a função
-            data = json.load(pessoas)
-            for i in data:
-                print(f'id: {i["id"]} - Nome: {i["nome"]} - CPF: {i["cpf"]} - Data_Nascimento: {i["data_nascimento"]}')
+        for i in data:
+            print(f'id: {i["id"]} - Nome: {i["nome"]} - CPF: {i["cpf"]} - Data_Nascimento: {i["data_nascimento"]}')
+            
+        
     elif operacao == 2:
-        with open('pessoas.json') as pessoas: #pessoas é a variavel que escolho para usar a função
-            data = json.load(pessoas)
         print('    === Cadastro de Pessoa === \n')
         nome = input("Nome: ")
         cpf = int(input("CPF: "))
         data_nascimento = input("Data de nascimento: ")
-        novo_id = max([pessoa["id"] for pessoa in data], default=0) + 1 # aqui ele vai consultar o arquivo Json e vai verificar qual é o ultimo ID e vai acrecentar mais um para o novo usuário
-        
-        nova_pessoa = Pessoa(novo_id, nome, cpf, data_nascimento)
 
+        novo_id = max([pessoa["id"] for pessoa in data], default=0) + 1 # aqui ele vai consultar o arquivo Json e vai verificar qual é o ultimo ID e vai acrecentar mais um para o novo usuário
+        #max retorna o maior valor da sequencia max()
+        # Se a lista estiver vazia, ou seja, se não houver IDs presentes, o valor padrão retornado será 0, conforme especificado pelo argumento default=0
+        nova_pessoa = Pessoa(novo_id, nome, cpf, data_nascimento)
         data.append(nova_pessoa.transforma_em_json())
 
         with open('pessoas.json', 'w') as file:
-            json.dump(data, file, indent=4)
+            json.dump(data, file, indent=4) #adiciona o Arry para o arquivo JSON no diretorio
 
     elif operacao == 3:
-        print('Alteracao: \n')
+        print('    === Cadastro de Pessoa === \n')
+
     elif operacao == 4:
         print('Exclusao: \n')
     elif operacao == 5:
