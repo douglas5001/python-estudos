@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="PT-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/css/style.css">
+    <title>Document</title>
+</head>
+<body style="background-color: black;">
+    <section>
+        <div class="login">
+            <form action="{{ url_for('menu_login') }}" method="POST" class="login">
+                <label for="nome">Nome</label>
+                <input type="text" name="nome" id="nome">
+                <label for="senha">Senha</label>
+                <input type="password" name="senha" id="senha">
+                <button style="margin: 5px">Enviar</button>
+                <label>{{ mensagem }}</label> 
+            </form>
+        </div>
+    </section>
+</body>
+</html>

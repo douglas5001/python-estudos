@@ -23,7 +23,17 @@ while sair == False:
       json.dump(data, file, indent=4)
 
   elif operacao == 2:
-    print("=== Cadastrar Usuário ===")
+    print("=== LOGIN ===")
+    nome = input('Nome: ')
+    cpf = int(input('cpf'))
+    usuario = Usuario(nome, cpf)
+
+    if usuario == (usuario, data):
+      print('usuario existe')
+    else:
+      print('Usuário nao existe')
+
+
   elif operacao == 3:
     print("=== Consultar usuários ===")
     for usuarios in data:

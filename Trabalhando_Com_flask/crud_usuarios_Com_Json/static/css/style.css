@@ -1,0 +1,51 @@
+body{
+    background-color: gray;
+}
+
+.menu{
+    background-color: azure;
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    padding: 20px;
+    align-items: start;
+}
+
+ul {
+    list-style-type: none; /* Remover os marcadores de lista */
+    padding: 0;
+    margin: 0;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin: 10px;
+    list-style-type: none;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    transition: box-shadow 0.3s ease-in-out;
+}
+
+.card:hover {
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+}
+
+.login{
+    background-color: #fff;
+    height: 500px;
+    width: 500px;
+    display: flex;
+    flex-direction: column;
+    margin: auto;
+    justify-content: center; /* Centraliza verticalmente */
+    align-items: center;/* Centraliza na tela */
+}
+
+.cadastro{
+    background-color: antiquewhite;
+    width: 500px;
+    height: 500px;
+}
