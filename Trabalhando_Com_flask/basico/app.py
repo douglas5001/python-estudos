@@ -1,10 +1,11 @@
 from flask import Flask, render_template, request
 
+
 app = Flask(__name__)
 
 usuarios = []
 
-@app.route('/', methods=["POST"])
+@app.route('/', methods=["POST","GET"])
 def principal():
     frutas = ['Banana', 'Goiaba', 'Maca', 'Uva']
     alunos = {'Douglas':4.5,'pedro':4.8,'Luana':10,'Camila':4.9,'Lucas':5,'Marcelo':8}

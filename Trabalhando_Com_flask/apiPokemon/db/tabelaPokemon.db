@@ -1,0 +1,37 @@
+CREATE TABLE pokemons (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    nome VARCHAR(255) NOT NULL,
+    descricao TEXT,
+    foto VARCHAR(255)
+);
+
+INSERT INTO pokemons (nome, descricao, foto) VALUES
+('Pikachu', 'Um Pokémon elétrico amarelo e fofinho.', 'https://exemplo.com/pikachu.jpg'),
+('Bulbasaur', 'Um Pokémon do tipo grama e venenoso.', 'https://exemplo.com/bulbasaur.jpg'),
+('Charmander', 'Um Pokémon do tipo fogo com uma chama na ponta da cauda.', 'https://exemplo.com/charmander.jpg'),
+('Squirtle', 'Um Pokémon do tipo água com uma concha nas costas.', 'https://exemplo.com/squirtle.jpg'),
+('Jigglypuff', 'Um Pokémon rosa cantor que adormece os outros.', 'https://exemplo.com/jigglypuff.jpg'),
+('Eevee', 'Um Pokémon com potencial para evoluir para muitas formas diferentes.', 'https://exemplo.com/eevee.jpg'),
+('Snorlax', 'Um Pokémon gigante e preguiçoso que dorme o tempo todo.', 'https://exemplo.com/snorlax.jpg'),
+('Mewtwo', 'Um Pokémon lendário psíquico criado artificialmente.', 'https://exemplo.com/mewtwo.jpg'),
+('Mew', 'Um Pokémon lendário misterioso com a habilidade de aprender todos os movimentos.', 'https://exemplo.com/mew.jpg'),
+('Sylveon', 'Um Pokémon do tipo fada com fitas flutuantes.', 'https://exemplo.com/sylveon.jpg'),
+('Gengar', 'Um Pokémon fantasma do tipo veneno com uma aparência maliciosa.', 'https://exemplo.com/gengar.jpg'),
+('Dragonite', 'Um Pokémon dragão que pode voar a grandes altitudes.', 'https://exemplo.com/dragonite.jpg'),
+('Lucario', 'Um Pokémon que pode sentir as auras dos outros e entender suas emoções.', 'https://exemplo.com/lucario.jpg'),
+('Gyarados', 'Um Pokémon do tipo água e voador com uma aparência feroz.', 'https://exemplo.com/gyarados.jpg'),
+('Alakazam', 'Um Pokémon psíquico que possui um grande poder cerebral.', 'https://exemplo.com/alakazam.jpg'),
+('Vaporeon', 'Um Pokémon do tipo água com a habilidade de se fundir na água.', 'https://exemplo.com/vaporeon.jpg'),
+('Espeon', 'Um Pokémon psíquico que é altamente leal a seu treinador.', 'https://exemplo.com/espeon.jpg'),
+('Flareon', 'Um Pokémon do tipo fogo com uma temperatura corporal muito alta.', 'https://exemplo.com/flareon.jpg'),
+('Jolteon', 'Um Pokémon do tipo elétrico com agulhas eletrificadas em seu corpo.', 'https://exemplo.com/jolteon.jpg'),
+('Umbreon', 'Um Pokémon do tipo noturno com uma pelagem negra e brilhante.', 'https://exemplo.com/umbreon.jpg'),
+('Leafeon', 'Um Pokémon do tipo grama que evolui quando exposto a certos raios solares.', 'https://exemplo.com/leafeon.jpg'),
+('Glaceon', 'Um Pokémon do tipo gelo que evolui quando exposto a uma Pedra de Gelo.', 'https://exemplo.com/glaceon.jpg'),
+('Zapdos', 'Um Pokémon lendário do tipo elétrico e voador.', 'https://exemplo.com/zapdos.jpg'),
+('Articuno', 'Um Pokémon lendário do tipo gelo e voador.', 'https://exemplo.com/articuno.jpg'),
+('Moltres', 'Um Pokémon lendário do tipo fogo e voador.', 'https://exemplo.com/moltres.jpg'),
+('Raichu', 'A forma evoluída de Pikachu, um Pokémon elétrico.', 'https://exemplo.com/raichu.jpg'),
+('Venusaur', 'A forma evoluída de Bulbasaur, um Pokémon do tipo grama e venenoso.', 'https://exemplo.com/venusaur.jpg'),
+('Charizard', 'A forma evoluída de Charmander, um Pokémon do tipo fogo e voador.', 'https://exemplo.com/charizard.jpg'),
+('Blastoise', 'A forma evoluída de Squirtle, um Pokémon do tipo água.', 'https://exemplo.com/blastoise.jpg');

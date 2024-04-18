@@ -1,4 +1,4 @@
-#!/Users/douglasportella/ESTUDO/python-estudos/Trabalhando_Com_flask/crud_usuarios_Com_Json/.venv/bin/python3.11
+#!/Users/douglasportella/ESTUDO/python-estudos/Trabalhando_Com_flask/crud_usuarios_Com_Json/.venv/bin/python3.12
 # -*- coding: utf-8 -*-
 import re
 import sys

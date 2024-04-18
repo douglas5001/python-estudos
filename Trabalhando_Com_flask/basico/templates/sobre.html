@@ -6,6 +6,12 @@
     <title>Sobre</title>
 </head>
 <body>
-    <h2>Sobre</h2>
+    <h2 style="text-align: center">Diário do professor</h2>
+    {% for chave, valor in notas.items() %}
+        <details>
+            <summary>{{chave}}</summary>
+            <p>{{valor}}</p>
+        </details>
+    {% endfor %}
 </body>
 </html>
