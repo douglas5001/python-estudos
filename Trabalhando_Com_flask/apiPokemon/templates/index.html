@@ -4,15 +4,35 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lista de Pokemons</title>
+    <style>
+        .card {
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            margin: 10px;
+            width: 200px;
+            display: inline-block;
+        }
+        .card h2 {
+            margin-top: 0;
+        }
+        .card img {
+            width: 100px;
+            height: 100px;
+            display: block;
+            margin: 0 auto;
+        }
+    </style>
 </head>
 <body>
     <h1>Lista de Pokemons</h1>
+
     <div id="pokemon-list">
         {% for pokemon in pokemons %}
-            <div>
+            <div class="card">
                 <h2>{{ pokemon.nome }}</h2>
                 <p>Descrição: {{ pokemon.descricao }}</p>
-                <img src="{{ pokemon.foto }}" alt="{{ pokemon.nome }}" style="width: 100; height: 100px;">
+                <img src="{{ pokemon.foto }}" alt="{{ pokemon.nome }}">
             </div>
         {% endfor %}
     </div>

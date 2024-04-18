@@ -38,6 +38,28 @@ def get_all_pokemonsweb():
     cursor.close()
     return render_template('index.html', pokemons=result)
 
+@app.route('/cadastropokemon')
+def cadastropokemon():
+    return render_template('cadastro.html')
+
+
+@app.route('/pokemonname', methods=["GET"])
+def get_allpokemons():
+    cursor = mysql.cursor(dictionary=True)
+    cursor.execute("SELECT nome FROM pokemons")
+    result = cursor.fetchall()
+    cursor.close()
+    return jsonify(result)
+
+@app.route('/pokemon/<int:pokemon_id>', methods=['DELETE'])
+def delete_pokemon(pokemon_id):
+    cursor = mysql.cursor()
+    cursor.execute("DELETE FROM pokemons WHERE id=%s", (pokemon_id,))
+    mysql.commit()
+    cursor.close()
+    return jsonify({'message': 'Pokemon deletado com sucesso!'})
+
+
 
 if __name__ == "__main__":
     app.run(port=8000, host='localhost', debug=True)
