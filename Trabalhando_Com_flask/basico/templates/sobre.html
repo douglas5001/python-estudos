@@ -1,17 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sobre</title>
-</head>
-<body>
-    <h2 style="text-align: center">Diário do professor</h2>
-    {% for chave, valor in notas.items() %}
-        <details>
-            <summary>{{chave}}</summary>
-            <p>{{valor}}</p>
-        </details>
-    {% endfor %}
-</body>
-</html>
+{% extends 'base.html' %}
+{% block conteudo %}
+    <h2 style="text-align: center;">Siário do Professor</h2>
+    <hr>
+{% for registro in registros %}
+    <details>
+        <summary>{{registro.aluno}}</summary>
+        <p>{{registro.nota}}</p>
+    </details>
+{% endfor %}
+<form action="{{url_for('sobre')}}" method="POST">
+    <label>Aluno</label>
+    <input type="text" name="aluno" required> 
+    <label>Nota</label>
+    <input type="text" name="nota" required>
+    <button>Adicionar</button>
+</form>
+
+{% endblock conteudo %}
+

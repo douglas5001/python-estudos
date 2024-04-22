@@ -1,36 +1,16 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Intengrando HTML ao Flask</title>
-</head>
-<body>
-    <h2>Intengrando HTML ao Flask</h2>
+{% extends 'base.html' %}
+{% block conteudo %}
+    <h2 style="text-align: center;"> Lista de Frutas </h2>
     <hr>
-    <h1>Array Simples</h1>
-    {%for list in frutas%}
-    <li>{{list}}</li>
-    {%endfor%}
-    <br>
-    <h1>Array json</h1>
-    {%for chave, valor in alunos.items():%}
-    <li>{{chave}}</li>
-    <li>{{valor}}</li>
-    {%endfor%}
+    <ol>
+        {% for fruta in frutas %}
+           <li>{{fruta}}</li>
+        {% endfor %}
+        <form action="{{url_for('principal')}}" method="POST">
+            <label>Fruta</label>
+            <input type="text" name="fruta">
+            <button>Adicionar</button>
+        </form>
+    </ol>
+{% endblock conteudo %}
 
-    <br>
- <ol>
-        <h1>usuários</h1>
-    {% for usuario in usuarios %}
-       <li>{{usuario}}</li>
-    {% endfor %}
-    <form action="{{url_for('principal')}}" method="POST">
-        <label>Usuario</label>
-        <input type="text" name="usuario">
-        <button>Adicionar</button>
-    </form>
- </ol>
-
-</body>
-</html>
