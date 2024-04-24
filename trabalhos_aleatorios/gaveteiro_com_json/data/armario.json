@@ -1,0 +1,57 @@
+[
+    {
+        "id": 1,
+        "numero_sala": 100,
+        "possui_chave": true
+    },
+    {
+        "id": 2,
+        "numero_sala": 101,
+        "possui_chave": true
+    },
+    {
+        "id": 3,
+        "numero_sala": 102,
+        "possui_chave": true
+    },
+    {
+        "id": 4,
+        "numero_sala": 103,
+        "possui_chave": true
+    },
+    {
+        "id": 5,
+        "numero_sala": 104,
+        "possui_chave": true
+    },
+    {
+        "id": 6,
+        "numero_sala": 105,
+        "possui_chave": true
+    },
+    {
+        "id": 7,
+        "numero_sala": 106,
+        "possui_chave": true
+    },
+    {
+        "id": 8,
+        "numero_sala": 107,
+        "possui_chave": true
+    },
+    {
+        "id": 9,
+        "numero_sala": 108,
+        "possui_chave": true
+    },
+    {
+        "id": 10,
+        "numero_sala": 109,
+        "possui_chave": true
+    },
+    {
+        "id": 11,
+        "numero_sala": 110,
+        "possui_chave": true
+    }
+]

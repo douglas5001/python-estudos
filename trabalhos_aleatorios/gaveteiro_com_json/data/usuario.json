@@ -1,0 +1,27 @@
+[
+    {
+        "nome": "Douglas",
+        "matricula": 1,
+        "possui_chave": false
+    },
+    {
+        "nome": "pedro",
+        "matricula": 2,
+        "possui_chave": false
+    },
+    {
+        "nome": "joao",
+        "matricula": 3,
+        "possui_chave": false
+    },
+    {
+        "nome": "lucas",
+        "matricula": 4,
+        "possui_chave": false
+    },
+    {
+        "nome": "jose",
+        "matricula": 5,
+        "possui_chave": false
+    }
+]
