@@ -22,7 +22,7 @@ class Usuario:
             "possui_chave":self.possui_chave
         }
     
-    def cadastro_usuario():
+    def post_usuario():
         usuarios = Usuario.listar()
         nome = input('Digite o nome do Usuário: ').lower()
         matricula = max([list["matricula"] for list in usuarios], default=0) + 1

@@ -42,5 +42,9 @@
     {
         "numero_sala": 110,
         "possui_chave": true
+    },
+    {
+        "numero_sala": 111,
+        "possui_chave": true
     }
 ]

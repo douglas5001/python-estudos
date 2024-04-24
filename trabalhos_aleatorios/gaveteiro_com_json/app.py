@@ -1,22 +1,23 @@
-import json
 from classes.usuario import Usuario
 from classes.usuarios_com_chave import Usuarios_com_chave
 from classes.armario import Armario
+
 sair = False
 
 while not sair:
-    dato_leido = int(input(
+    operacao = int(input(
         '====== ARMARIO DA ESCOLA ======\n\n'
         '1 - Consultar usuarios: '
         '\n2 - Consultar usuarios com a chave: '
         '\n3 - Consultar caixas do armario: '
         '\n4 - Pegar chave do armario: '
-        '\n5 - Cadastrar usuario: '
-        '\n6 - Todos os usuarios devolvem as chaves: '
-        '\n7 - SAIR: '
+        '\n5 - Cadastrar de usuario: '
+        '\n6 - Cadastro de sala: '
+        '\n7 - Todos os usuarios devolvem as chaves: '
+        '\n8 - SAIR: '
         '\nEscolha: '))
 
-    match dato_leido:
+    match operacao:
         case 1:
             print('\n\n===== CONSULTA DE USUARIOS =====\n')
             usuarios = Usuario.listar()
@@ -37,11 +38,14 @@ while not sair:
             usuarios_com_chave = Usuarios_com_chave.pegar_chave()
         case 5:
             print('\n\n===== CADASTRO DE USUÁRIO =====\n')
-            usuario = Usuario.cadastro_usuario()
+            usuario = Usuario.post_usuario()
         case 6:
+            print('\n\n===== CADASTRO DE ARMARIO =====\n')
+            armario = Armario.post_armario()
+        case 7:
             print('\n\n===== TODOS USUARIOS DEVOLVERAM AS CHAVES =====\n')
             usuarios_com_chave = Usuarios_com_chave.todos_devolvem_as_chaves()
-        case 7:
+        case 8:
             sair = True
         case _:
             print('Opção não existe')
