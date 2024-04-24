@@ -14,3 +14,9 @@ class Armario():
         with open(file_path) as json_file:
             data = json.load(json_file)
         return data
+    
+    def update_armario(armarios):
+        script_dir = os.path.dirname(__file__)
+        file_path_chaves = os.path.join(script_dir, '../data/armario.json')
+        with open(file_path_chaves, 'w') as json_file:
+            json.dump(armarios, json_file, indent=4)
