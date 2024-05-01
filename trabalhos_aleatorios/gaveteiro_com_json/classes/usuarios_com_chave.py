@@ -4,13 +4,15 @@ import json
 import os
 
 class Usuarios_com_chave():
+    id = 0
     def __init__(self, nome, matricula_usuario, numero_sala):
         self.nome = nome
         self.matricula_usuario = matricula_usuario
         self.numero_sala = numero_sala
-    
+        Usuarios_com_chave.id = Usuarios_com_chave.id + 1
     def converte_em_json(self):
         return {
+            "id":Usuarios_com_chave.id,
             "nome": self.nome,
             "matricula": self.matricula_usuario,
             "numero_sala": self.numero_sala

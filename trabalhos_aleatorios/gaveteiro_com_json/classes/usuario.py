@@ -2,7 +2,9 @@ import json
 import os
 
 class Usuario:
+    id = 0
     def __init__(self, nome, matricula):
+        Usuario.id = Usuario.id + 1
         self.nome = nome
         self.matricula = matricula
         self.possui_chave = False
@@ -17,6 +19,7 @@ class Usuario:
     
     def converte_em_json(self):
         return {
+            "id":Usuario.id,
             "nome":self.nome,
             "matricula":self.matricula,
             "possui_chave":self.possui_chave

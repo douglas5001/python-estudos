@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block conteudo %}
+    <h2 style="text-align: center;"> Adicionar um novo curso </h2>
+    <hr>
+    {%- for mensagem in get_flashed_messages() %}
+        <div class="alert alert-danger">
+            {{mensagem}}
+        </div>
+    {%- endfor %}
+    <form class="form-control" action="{{url_for('cria_curso')}}" method="POST">
+        <label>Nome</label>
+        <input class="form-control" type="text" name="nome" placeholder="Nome do curso" required>
+        <label>Descrição</label>
+        <input class="form-control" type="text" name="descricao" placeholder="Descricao do curso" required>
+        <label>CH</label>
+        <input class="form-control" type="number" name="ch" placeholder="CH do curso" required>
+        <br>
+        <button class="btn btn-success">Adicionar</button>
+    
+    </form>
+    
+{% endblock conteudo %}
+

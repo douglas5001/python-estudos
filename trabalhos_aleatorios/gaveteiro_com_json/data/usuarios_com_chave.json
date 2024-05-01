@@ -1,1 +1,8 @@
-[]
+[
+    {
+        "id": 1,
+        "nome": "joao",
+        "matricula": 4,
+        "numero_sala": 100
+    }
+]

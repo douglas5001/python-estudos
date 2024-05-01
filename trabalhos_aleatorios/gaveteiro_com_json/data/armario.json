@@ -1,7 +1,7 @@
 [
     {
         "numero_sala": 100,
-        "possui_chave": true
+        "possui_chave": false
     },
     {
         "numero_sala": 101,
