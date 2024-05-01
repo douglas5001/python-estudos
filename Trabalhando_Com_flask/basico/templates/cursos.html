@@ -11,6 +11,7 @@
               <th scope="col">Nome</th>
               <th scope="col">Descricao</th>
               <th scope="col">CH</th>
+              <th scope="col">Ações</th>
             </tr>
           </thead>
           <tbody>
@@ -21,6 +22,10 @@
                 <td>{{curso.nome}}</td>
                 <td>{{curso.descricao}}</td>
                 <td>{{curso.ch}}</td>
+                <td>
+                    <a href="{{curso.id}}/atualiza_curso" class="btn btn-secondary btn-xs">Editar</a>
+                    <a href="{{curso.id}}/remove_curso" onclick="return confirm('Deseja excluir este registro?')" class="btn btn-danger btn-xs">Excluir</a>
+                </td>
             </tr>
             {% endfor %}
             </tr>
