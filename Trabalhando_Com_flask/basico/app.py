@@ -63,7 +63,10 @@ def filmes(propriedade):
 
 @app.route('/cursos')
 def lista_cursos():
-    return render_template("cursos.html", cursos=cursos.query.all())
+    page = request.args.get('page', 1, type=int)
+    per_page = 4
+    todos_cursos = cursos.query.paginate(page=page, per_page=per_page)
+    return render_template("cursos.html", cursos=todos_cursos)
 
 @app.route('/cria_curso', methods=["GET","POST"])
 def cria_curso():
