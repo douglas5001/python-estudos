@@ -4,12 +4,13 @@ from ..schemas import curso_schema
 from flask import request, make_response, jsonify
 from ..entidades import curso
 from ..services import curso_service, formacao_service
+from ..paginate import paginate
+from ..models.curso_model import Curso
 
 class CursoList(Resource):
     def get(self):
-        cursos = curso_service.listar_cursos()
         cs = curso_schema.CursoSchema(many=True)
-        return make_response(cs.jsonify(cursos), 200)
+        return paginate(Curso,cs)
     def post(self):
         cs = curso_schema.CursoSchema()
         validate = cs.validate(request.json)
