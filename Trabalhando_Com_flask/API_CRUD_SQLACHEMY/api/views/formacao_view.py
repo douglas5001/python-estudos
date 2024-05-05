@@ -9,7 +9,7 @@ from ..models.formacao_model import Formacao
 from flask_jwt_extended import jwt_required
 
 class FormacaoList(Resource):
-    @jwt_required()
+    #@jwt_required()
     def get(self):
         #ADICIONANDO O SCRIPT DE PAGINACAO
         #formacoes = formacao_service.listar_formacoes()
@@ -17,7 +17,7 @@ class FormacaoList(Resource):
         #return make_response(cs.jsonify(formacoes), 200)
         return paginate(Formacao, cs)
 
-    @jwt_required()
+    #@jwt_required()
     def post(self):
         cs = formacao_schema.FormacaoSchema()
         validate = cs.validate(request.json)
