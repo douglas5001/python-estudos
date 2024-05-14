@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lista de Produtos</title>
+    <!-- Adicione os links para os estilos do Bootstrap -->
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+        <h1 class="my-4">Lista de Produtos</h1>
+        <div class="row">
+            <!-- Iterar sobre os produtos e criar um card para cada um -->
+            {% for produto in produtos %}
+                <div class="col-lg-4 col-md-6 mb-4">
+                    <div class="card h-100">
+                        {% if produto.imagem %}
+                            <!-- Se houver uma imagem para o produto, exiba-a -->
+                            <img class="card-img-top" src="{{ url_for('static', filename='uploads/' + produto.imagem) }}" alt="{{ produto.nome }}">
+                        {% else %}
+                            <!-- Caso contrário, exiba uma imagem padrão ou deixe em branco -->
+                            <img class="card-img-top" src="{{ url_for('static', filename='placeholder.jpg') }}" alt="{{ produto.nome }}">
+                        {% endif %}
+                        <div class="card-body">
+                            <h4 class="card-title">{{ produto.nome }}</h4>
+                            <p class="card-text">{{ produto.descricao }}</p>
+                        </div>
+                        <div class="card-footer">
+                            <small class="text-muted">{{ produto.categoria }}</small>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+    <!-- Adicione os scripts do Bootstrap -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
