@@ -1,2 +1,2 @@
 # python-estudos
-projetos do básico ao avençado com a linguagem python
+projetos do básico ao avançado com a linguagem python
