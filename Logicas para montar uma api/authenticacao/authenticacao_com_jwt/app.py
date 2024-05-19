@@ -1,3 +1,4 @@
+from datetime import timedelta
 from flask import Flask, request, jsonify, make_response
 from flask_sqlalchemy import SQLAlchemy
 from marshmallow_sqlalchemy import SQLAlchemyAutoSchema
@@ -6,6 +7,8 @@ from marshmallow import fields
 from flask_marshmallow import Marshmallow
 from flask_restful import Resource,Api
 import pymysql
+from passlib.hash import pbkdf2_sha256
+from flask_jwt_extended import JWTManager
 pymysql.install_as_MySQLdb()
 
 app = Flask(__name__)
@@ -16,12 +19,17 @@ db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 ma = Marshmallow(app)
 api = Api(app)
+jwt = JWTManager(app)
+
+from functools import wraps
+from flask_jwt_extended import create_access_token, create_refresh_token, get_jwt, get_jwt_identity, jwt_required, verify_jwt_in_request
 
 class Usuario():
-    def __init__(self, nome, email, senha):
+    def __init__(self, nome, email, senha, is_admin):
         self.__nome = nome 
         self.__email = email
         self.__senha = senha
+        self.__is_admin = is_admin
 
     @property
     def nome(self):
@@ -46,7 +54,15 @@ class Usuario():
     @senha.setter
     def senha(self, senha):
         self.senha = senha
+
+    @property
+    def is_admin(self):
+        return self.__is_admin
     
+    @is_admin.setter
+    def is_admin(self, is_admin):
+        self.is_admin = is_admin
+
 class UsuarioModel(db.Model):
     __tablename__ = 'usuario'
 
@@ -54,16 +70,35 @@ class UsuarioModel(db.Model):
     nome = db.Column(db.String(50), nullable=False)
     email = db.Column(db.String(100), nullable=False)
     senha = db.Column(db.String(100), nullable=False)
+    is_admin = db.Column(db.Boolean)
 
+    def encriptar_senha(self):
+        self.senha = pbkdf2_sha256.hash(self.senha)
+
+    def ver_senha(self, senha):
+        return pbkdf2_sha256.verify(senha, self.senha)
+
+class LoginSchema(ma.SQLAlchemyAutoSchema):
+    class Meta:
+        model = UsuarioModel
+        load_instance = True
+        fields = ("id", "nome", "email", "senha")
+
+    nome = fields.String(required=False)
+    email = fields.String(required=True)
+    senha = fields.String(required=True)
 
 class UsuarioSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = UsuarioModel
         load_instance = True
-        fields = ("id","nome", "email", "senha")
+        fields = ("id","nome", "email", "senha", "is_admin")
     nome = fields.String(required=True)
     email = fields.String(required=True)
     senha = fields.String(required=True)
+    is_admin = fields.Boolean(required=True)
+
+
 
 def listarusuario():
     usuario_db = UsuarioModel.query.all()
@@ -73,8 +108,13 @@ def listar_usuario_id(id):
     usuario_db = UsuarioModel.query.filter_by(id=id).first() #filt(id=id).first()
     return usuario_db
 
+def listar_usuario_email(email):
+    return UsuarioModel.query.filter_by(email=email).first()
+
+
 def cadastrar_usuario(usuario):
-    usuario_bd = UsuarioModel(nome=usuario.nome, email=usuario.email, senha=usuario.senha)
+    usuario_bd = UsuarioModel(nome=usuario.nome, email=usuario.email, senha=usuario.senha, is_admin=usuario.is_admin)
+    usuario_bd.encriptar_senha()
     db.session.add(usuario_bd)
     db.session.commit()
     return usuario_bd
@@ -90,12 +130,87 @@ def deletar_usuario(usuario):
     db.session.commit()
     return usuario
 
+def admin_required(fn):
+    @wraps(fn)
+    def wrapper(*args, **kwargs):
+        verify_jwt_in_request()
+        claims = get_jwt()
+        if claims['roles'] != 'admin':
+            return make_response(jsonify(message='Náo é prermitido esse recurco, só para administradores'), 403)
+        else:
+            return fn(*args, **kwargs)
+    return wrapper
+
+
+class LoginList(Resource):
+    @jwt.additional_claims_loader
+    def add_claims_to_access_token(identity):
+        usuario_token = listar_usuario_id(identity)  #(identity)
+        if usuario_token.is_admin:
+            roles = 'admin'
+        else:
+            roles = 'user'
+
+        return {'roles':roles}
+
+    def post(self):
+        ls = LoginSchema()
+        validate = ls.validate(request.json)
+        if validate:
+            return make_response(jsonify(validate), 400)
+        else:
+            email = request.json["email"]
+            senha = request.json["senha"]
+
+            usuario_db = listar_usuario_email((email))
+
+            if usuario_db and usuario_db.ver_senha(senha):
+                access_token = create_access_token(
+                    identity=usuario_db.id,
+                    expires_delta=timedelta(seconds=500)
+                )
+
+                refresh_token = create_refresh_token(
+                    identity=usuario_db.id
+                )
+
+                return make_response(jsonify({
+                    'access_token':access_token,
+                    'refresh_token':refresh_token,
+                    'message':'login realizado com sucesso'
+                }), 200)
+
+            return make_response(jsonify({
+                'message':'Credenciais estao invalidadas'
+            }), 401)
+
+class RefreshTokenList(Resource):
+    @jwt_required(refresh=True)
+    def post(self):
+        usuario_token = get_jwt_identity()
+        access_token = create_access_token(
+            identity=usuario_token,
+            expires_delta=timedelta(seconds=100)
+        )
+        refresh_token = create_refresh_token(
+            identity=usuario_token
+        )
+
+        return make_response({
+            'access_token':access_token,
+            'refresh_token':refresh_token
+        }, 200)
+
+
 
 class UsuariosList(Resource):
     def get(self):
         us = UsuarioSchema(many=True)
         resultado = listarusuario()
         return make_response(us.jsonify(resultado), 200)
+        #us = UsuarioSchema(many=True)
+        #resultado = listarusuario()
+        #return make_response(us.jsonify(resultado), 200)
     
     def post(self):
         us = UsuarioSchema()
@@ -106,7 +221,8 @@ class UsuariosList(Resource):
             nome = request.json['nome']
             email = request.json['email']
             senha = request.json['senha']
-            novo_usuario = Usuario(nome=nome, email=email, senha=senha)
+            is_admin = request.json['is_admin']
+            novo_usuario = Usuario(nome=nome, email=email, senha=senha, is_admin=is_admin)
             resultado = cadastrar_usuario(novo_usuario)
             x = us.jsonify(resultado)
             return make_response(x, 201)
@@ -114,13 +230,13 @@ class UsuariosList(Resource):
 class UsuarioIdList(Resource):
 
     def get(self, id):
-        usuario = listar_usuario_id(id)
-        if usuario is None:
-            return make_response(jsonify('usuario nao encontrado'), 404)
+        us = listar_usuario_id(id)
+        if us is None:
+            return make_response(jsonify('Usuario nao encontrado'),404)
         else:
-            us = UsuarioSchema()
-
-            return make_response(us.jsonify(usuario), 200)
+            resultado = UsuarioSchema()
+            x = resultado.jsonify(us)
+            return make_response(x, 200)
 
     def put(self, id):
         us = listar_usuario_id(id)
@@ -149,7 +265,8 @@ class UsuarioIdList(Resource):
             return make_response('usuario deletado')
 
 
-
+api.add_resource(RefreshTokenList, '/token/refresh')
+api.add_resource(LoginList, '/login')
         
 
 
