@@ -1,0 +1,10 @@
+[
+    {
+        "nome": "Douglas",
+        "senha": "Douglas123"
+    },
+    {
+        "nome": "lucas",
+        "senha": "$pbkdf2-sha256$29000$sxbiHAMAIOQcA8A4p7RWyg$UR9Hj3auyupZOWki4VTK6Ff5nRW.dkWF0dAR4rgWrAw"
+    }
+]

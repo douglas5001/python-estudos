@@ -267,10 +267,6 @@ class UsuarioIdList(Resource):
 
 api.add_resource(RefreshTokenList, '/token/refresh')
 api.add_resource(LoginList, '/login')
-        
-
-
-
 
 
 api.add_resource(UsuariosList, '/usuarios')
